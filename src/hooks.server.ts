@@ -1,6 +1,6 @@
 import type { Handle } from '@sveltejs/kit';
 import PocketBase from 'pocketbase';
-import { serializeNonPOJOs } from './lib/utils';
+import { serializeNonPOJOs } from '$lib/utils';
 
 export const handle: Handle = async ({ event, resolve }) => {
     event.locals.pb = new PocketBase('https://ollis-test-pocketbase.fly.dev/');
