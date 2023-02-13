@@ -1,6 +1,6 @@
 const { randomBytes } = await import('node:crypto');
 
-export const serializeNonPOJOs: any = (obj: any) => {
+export const serializeNonPOJOs = <T>(obj: T): T => {
     return structuredClone(obj);
 }
 
