@@ -1,5 +1,9 @@
 <script lang="ts">
+	import { Input } from '$lib/components';
     import { Icon, Pencil } from 'svelte-hero-icons'
+	import type { PageData } from './$types';
+
+    export let data: PageData
 
     const showPreview = (event: Event) => {
         const target = event.target as HTMLInputElement
@@ -33,6 +37,10 @@
                 </div>
             </label>
             <input type="file" name="avatar" id="avatar" hidden value="" accept="image/*" on:change={showPreview}>
+        </div>
+        <Input id="name" label="Name" value={data?.user?.name}/>
+        <div class="w-full max-w-lg pt-3">
+            <button type="submit" class="btn btn-primary w-full max-w-lg">Update Profile</button>
         </div>
     </form>
 </div>
