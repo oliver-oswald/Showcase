@@ -9,6 +9,11 @@ export const generateUsername = (name: string) => {
 	return `${name.slice(0, 5)}${id}`;
 };
 
-export const getImageURL = (collectionId: string, recordId: string, fileName: string, size = '0x0') => { 
-	return `https://ollis-test-pocketbase.fly.dev/api/files/${collectionId}/${recordId}/${fileName}?thumb=${size}`
-}
+export const getImageURL = (
+	collectionId: string,
+	recordId: string,
+	fileName: string,
+	size = '0x0'
+) => {
+	return `https://ollis-test-pocketbase.fly.dev/api/files/${collectionId}/${recordId}/${fileName}?thumb=${size}`;
+};
