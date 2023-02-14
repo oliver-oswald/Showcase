@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { page } from "$app/stores";
     const navigation = [
         {
             title: 'Profile',
@@ -25,7 +26,7 @@
     <ul class="menu bg-base-100 w-56 p-2 rounded-box">
         {#each navigation as navItem}
             <li>
-                <a href={navItem.href} class="font-medium">{navItem.title}</a>
+                <a href={navItem.href} class="font-medium {$page.url.pathname === navItem.href ? 'active' : ''}">{navItem.title}</a>
             </li>
         {/each}
     </ul>
