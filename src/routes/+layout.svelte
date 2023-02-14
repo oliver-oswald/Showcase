@@ -36,7 +36,7 @@
 							<a href="/my/projects" class="justify-between">My Projects</a>
 						</li>
 						<li>
-							<a href="/settings" class="justify-between">Settings</a>
+							<a href="/my/settings" class="justify-between">Settings</a>
 						</li>
 						<li>
 							<form action="/logout" method="POST">
@@ -48,7 +48,7 @@
 			{/if}
 		</div>
 	</nav>
-	<div class="py-10">
+	<div class="py-4">
 		<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
 			<slot />
 		</div>
