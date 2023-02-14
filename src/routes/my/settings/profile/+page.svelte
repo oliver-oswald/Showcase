@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Input } from '$lib/components';
+	import { getImageURL } from '$lib/utils';
     import { Icon, Pencil } from 'svelte-hero-icons'
 	import type { PageData } from './$types';
 
@@ -18,7 +19,7 @@
 </script>
 
 <div class="flex flex-col w-full h-full">
-    <form action="?/updateProfile" method="POST" class="flex flex-col space-y-2 w-full">
+    <form action="?/updateProfile" method="POST" class="flex flex-col space-y-2 w-full" enctype="multipart/form-data">
         <h3 class="text-2xl font-medium">Update Profile</h3>
         <div class="form-control w-full max-w-lg">
             <label for="avatar" class="label font-medium pb-1">
@@ -33,7 +34,7 @@
                     </span>
                 </label>
                 <div class="w-32 rounded-full">
-                    <img src="https://placeimg.com/80/80/people" alt="user avatar" id="avatar-preview">
+                    <img src={data.user?.avatar ? getImageURL(data.user?.collectionId, data.user?.id, data.user?.avatar) : `https://ui-avatars.com/api/?name=${data.user?.name}`} alt="user avatar" id="avatar-preview">
                 </div>
             </label>
             <input type="file" name="avatar" id="avatar" hidden value="" accept="image/*" on:change={showPreview}>
