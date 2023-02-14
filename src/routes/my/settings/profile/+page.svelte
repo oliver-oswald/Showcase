@@ -1,11 +1,15 @@
 <script lang="ts">
+	import { type SubmitFunction, enhance, applyAction } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
 	import { Input } from '$lib/components';
 	import { getImageURL } from '$lib/utils';
 	import { Icon, Pencil } from 'svelte-hero-icons';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+    let loading: boolean;
 
+    $: loading = false;
 	const showPreview = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		const files = target.files as FileList;
@@ -16,6 +20,22 @@
 			preview.src = src;
 		}
 	};
+
+    const submitUpdateProfile: SubmitFunction = () => {
+        loading = true;
+        return async ({ result }) => {
+            switch (result.type){
+                case 'success':
+                    await invalidateAll();
+                    break;
+                case 'error':
+                    break;
+                default:
+                    await applyAction(result);
+            }
+            loading = false;
+        }
+    }
 </script>
 
 <div class="flex flex-col w-full h-full">
@@ -24,6 +44,7 @@
 		method="POST"
 		class="flex flex-col space-y-2 w-full"
 		enctype="multipart/form-data"
+        use:enhance={submitUpdateProfile}
 	>
 		<h3 class="text-2xl font-medium">Update Profile</h3>
 		<div class="form-control w-full max-w-lg">
@@ -54,11 +75,12 @@
 				value=""
 				accept="image/*"
 				on:change={showPreview}
+                disabled={loading}
 			/>
 		</div>
-		<Input id="name" label="Name" value={data?.user?.name} />
+		<Input id="name" label="Name" value={data?.user?.name} disabled={loading}/>
 		<div class="w-full max-w-lg pt-3">
-			<button type="submit" class="btn btn-primary w-full max-w-lg">Update Profile</button>
+			<button type="submit" class="btn btn-primary w-full max-w-lg" disabled={loading}>Update Profile</button>
 		</div>
 	</form>
 </div>
