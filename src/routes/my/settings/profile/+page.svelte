@@ -1,5 +1,16 @@
 <script lang="ts">
     import { Icon, Pencil } from 'svelte-hero-icons'
+
+    const showPreview = (event: Event) => {
+        const target = event.target as HTMLInputElement
+        const files = target.files as FileList
+
+        if (files.length > 0){
+            const src = URL.createObjectURL(files[0])
+            const preview = document.getElementById('avatar-preview') as HTMLImageElement
+            preview.src = src
+        }
+    }
 </script>
 
 <div class="flex flex-col w-full h-full">
@@ -18,10 +29,10 @@
                     </span>
                 </label>
                 <div class="w-32 rounded-full">
-                    <img src="https://placeimg.com/80/80/people" alt="user avatar">
+                    <img src="https://placeimg.com/80/80/people" alt="user avatar" id="avatar-preview">
                 </div>
             </label>
-            <input type="file" name="avatar" id="avatar" hidden value="" accept="image/*">
+            <input type="file" name="avatar" id="avatar" hidden value="" accept="image/*" on:change={showPreview}>
         </div>
     </form>
 </div>
