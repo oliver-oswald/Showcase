@@ -25,15 +25,13 @@ export const handle: Handle = async ({ event, resolve }) => {
 		event.locals.user = undefined;
 	}
 
-	let response: Response;
 	if (theme) {
-		response = await resolve(event, {
+		return await resolve(event, {
 			transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`)
-		 });
-	} else { 
-		response = await resolve(event);
+		});
 	}
-
+	
+	const response = await resolve(event);
 
 	response.headers.set('set-cookie', event.locals.pb.authStore.exportToCookie());
 

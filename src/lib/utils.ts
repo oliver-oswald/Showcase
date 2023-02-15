@@ -17,3 +17,11 @@ export const getImageURL = (
 ) => {
 	return `https://ollis-test-pocketbase.fly.dev/api/files/${collectionId}/${recordId}/${fileName}?thumb=${size}`;
 };
+
+export const getCurrentTheme = () => {
+	let theme = 'light';
+	if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		theme = 'dark';
+	}
+	return document.documentElement.getAttribute('data-theme') || theme;
+}
