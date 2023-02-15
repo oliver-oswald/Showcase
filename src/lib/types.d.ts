@@ -11,3 +11,12 @@ interface User extends Record {
 	youtube?: string;
 	github?: string;
 }
+
+interface Project extends Record {
+	name: string;
+	tagline: string;
+	thumbnail?: string | undefined;
+	description: string;
+	url: string;
+	user: string;
+}
