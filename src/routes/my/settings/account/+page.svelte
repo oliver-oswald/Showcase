@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { applyAction, type SubmitFunction, enhance } from "$app/forms";
+	import { invalidateAll } from "$app/navigation";
     import { Input, Modal } from "$lib/components";
 	import type { PageData } from "./$types";
 
@@ -7,9 +9,49 @@
 
     let emailModalOpen: boolean;
     let usernameModalOpen: boolean;
+    let loading: boolean;
 
     $: emailModalOpen = false;
     $: usernameModalOpen = false;
+    $: loading = false;
+
+    const submitUpdateEmail: SubmitFunction = () => {
+        loading = true;
+        emailModalOpen = true;
+        return async ({ result}) => {
+            switch (result.type) {
+                case "success":
+                    await invalidateAll();
+                    emailModalOpen = false;
+                    break;
+                case "error":
+                    break;
+                default:
+                    await applyAction(result);
+            }
+            loading = false;
+        }
+    
+    }
+    
+    const submitUpdateUsername: SubmitFunction = () => {
+        loading = true;
+        usernameModalOpen = true;
+        return async ({ result}) => {
+            switch (result.type) {
+                case "success":
+                    await invalidateAll();
+                    usernameModalOpen = false;
+                    break;
+                case "error":
+                    break;
+                default:
+                    await applyAction(result);
+            }
+            loading = false;
+        }
+    
+    }
 </script>
 
 <div class="flex flex-col w-full h-full space-y-12">
@@ -19,15 +61,16 @@
         <Modal label="change-email" checked={emailModalOpen}>
             <span slot="trigger" class="btn btn-primary">Change Email</span>
             <h3 slot="heading">Change Your Email</h3>
-            <form action="?/updateEmail" method="POST" class="space-y-2">
+            <form action="?/updateEmail" method="POST" class="space-y-2" use:enhance={submitUpdateEmail}>
                 <Input
                     id="email"
                     type="email"
                     required
                     value={form?.data?.email}
                     label="Enter your new email address"
+                    disabled={loading}
                 />
-                <button type="submit" class="btn btn-primary w-full">Change my email</button>
+                <button disabled={loading} type="submit" class="btn btn-primary w-full">Change my email</button>
             </form>
         </Modal>
     </div>
@@ -38,15 +81,16 @@
         <Modal label="change-username" checked={usernameModalOpen}>
             <span slot="trigger" class="btn btn-primary">Change Username</span>
             <h3 slot="heading">Change Your Username</h3>
-            <form action="?/updateUsername" method="POST" class="space-y-2">
+            <form action="?/updateUsername" method="POST" class="space-y-2" use:enhance={submitUpdateUsername}>
                 <Input
                     id="username"
                     type="text"
                     required
                     value={form?.data?.username}
                     label="Enter your new username address"
+                    disabled={loading}
                 />
-                <button type="submit" class="btn btn-primary w-full">Change my username</button>
+                <button type="submit" class="btn btn-primary w-full" disabled={loading}>Change my username</button>
             </form>
         </Modal>
     </div>
