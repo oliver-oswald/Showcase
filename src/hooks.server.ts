@@ -24,15 +24,17 @@ export const handle: Handle = async ({ event, resolve }) => {
 		event.locals.user = undefined;
 	}
 
-	if (theme) {
+	/*if (theme) {
 		return await resolve(event, {
 			transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`)
 		});
+	}*/
+
+	const response = await resolve(event, theme ? {transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`)} : undefined);
+
+	if (cookieTheme === theme) {
+		response.headers.set('set-cookie', event.locals.pb.authStore.exportToCookie());
 	}
-
-	const response = await resolve(event);
-
-	response.headers.set('set-cookie', event.locals.pb.authStore.exportToCookie());
 
 	return response;
 };
