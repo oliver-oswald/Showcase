@@ -1,8 +1,8 @@
-import { error, redirect } from "@sveltejs/kit";
-import type { Actions } from "./$types";
+import { error, redirect } from '@sveltejs/kit';
+import type { Actions } from './$types';
 
 export const actions: Actions = {
-	updatePassword: async ({ request, locals }) => { 
+	updatePassword: async ({ request, locals }) => {
 		const data = Object.fromEntries(await request.formData());
 
 		try {
@@ -13,6 +13,5 @@ export const actions: Actions = {
 			throw error(400, 'Error updating password');
 		}
 		throw redirect(303, '/login');
-		
 	}
 };

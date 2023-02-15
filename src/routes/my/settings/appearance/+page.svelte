@@ -3,13 +3,13 @@
 	import { getCurrentTheme } from '$lib/utils';
 	import { onMount } from 'svelte';
 
-    let currentTheme: string | null;
+	let currentTheme: string | null;
 
-    $: currentTheme = null;
+	$: currentTheme = null;
 
-    onMount(() => {
-        currentTheme = getCurrentTheme();
-    });
+	onMount(() => {
+		currentTheme = getCurrentTheme();
+	});
 
 	const submitUpdateTheme: SubmitFunction = ({ action }) => {
 		currentTheme = action.searchParams.get('theme');
@@ -62,11 +62,14 @@
 					<button> Set Theme 🎨 </button>
 					<ul class="p-2 bg-base-100 w-full max-h-96 overflow-y-scroll">
 						<form method="POST" use:enhance={submitUpdateTheme}>
-                            {#each themes as theme}                         
-                                <li>
-                                    <button class={currentTheme === theme ? "active" : ""} formaction="?/setTheme&theme={theme}">{theme}</button>
-                                </li>
-                            {/each}
+							{#each themes as theme}
+								<li>
+									<button
+										class={currentTheme === theme ? 'active' : ''}
+										formaction="?/setTheme&theme={theme}">{theme}</button
+									>
+								</li>
+							{/each}
 						</form>
 					</ul>
 				</li>

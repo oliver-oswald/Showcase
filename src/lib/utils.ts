@@ -24,4 +24,4 @@ export const getCurrentTheme = () => {
 		theme = 'dark';
 	}
 	return document.documentElement.getAttribute('data-theme') || theme;
-}
+};

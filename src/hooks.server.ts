@@ -4,7 +4,6 @@ import { serializeNonPOJOs } from '$lib/utils';
 import type { User } from '$lib/types';
 
 export const handle: Handle = async ({ event, resolve }) => {
-
 	let theme: string | null = null;
 
 	const newTheme = event.url.searchParams.get('theme');
@@ -12,7 +11,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	if (newTheme) {
 		theme = newTheme;
-	} else if (cookieTheme) { 
+	} else if (cookieTheme) {
 		theme = cookieTheme;
 	}
 
@@ -30,7 +29,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`)
 		});
 	}
-	
+
 	const response = await resolve(event);
 
 	response.headers.set('set-cookie', event.locals.pb.authStore.exportToCookie());
