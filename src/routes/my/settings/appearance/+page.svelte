@@ -1,3 +1,15 @@
+<script lang="ts">
+    import { enhance, type SubmitFunction } from "$app/forms";
+
+    const submitUpdateTheme: SubmitFunction = ({action}) => {
+        const theme = action.searchParams.get("theme");
+
+        if (theme) {
+            document.documentElement.setAttribute("data-theme", theme);
+        }
+    };
+</script>
+
 <div class="flex flex-col w-full h-full space-y-12">
     <div class="w-full">
         <h3 class="text-2xl font-medium">Change Theme</h3>
@@ -7,7 +19,7 @@
                 <li>
                     <button> Set Theme 🎨 </button>
                     <ul class="p-2 bg-base-100 w-full max-h-96 overflow-y-scroll">
-                        <form method="POST">
+                        <form method="POST" use:enhance={submitUpdateTheme}>
                             <li>
                                 <button formaction="?/setTheme&theme=light">Light</button>
                             </li>
