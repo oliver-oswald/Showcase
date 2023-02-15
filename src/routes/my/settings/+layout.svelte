@@ -12,6 +12,10 @@
 		{
 			title: 'Security',
 			href: '/my/settings/security'
+		},
+		{
+			title: 'Appearance',
+			href: '/my/settings/appearance'
 		}
 	];
 </script>

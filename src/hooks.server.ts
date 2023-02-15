@@ -4,6 +4,18 @@ import { serializeNonPOJOs } from '$lib/utils';
 import type { User } from '$lib/types';
 
 export const handle: Handle = async ({ event, resolve }) => {
+
+	let theme: string | null = null;
+
+	const newTheme = event.url.searchParams.get('theme');
+	const cookieTheme = event.cookies.get('colortheme');
+
+	if (newTheme) {
+		theme = newTheme;
+	} else if (cookieTheme) { 
+		theme = cookieTheme;
+	}
+
 	event.locals.pb = new PocketBase('https://ollis-test-pocketbase.fly.dev/');
 	event.locals.pb.authStore.loadFromCookie(event.request.headers.get('cookie') || '');
 
@@ -13,7 +25,15 @@ export const handle: Handle = async ({ event, resolve }) => {
 		event.locals.user = undefined;
 	}
 
-	const response = await resolve(event);
+	let response: Response;
+	if (theme) {
+		response = await resolve(event, {
+			transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`)
+		 });
+	} else { 
+		response = await resolve(event);
+	}
+
 
 	response.headers.set('set-cookie', event.locals.pb.authStore.exportToCookie());
 
