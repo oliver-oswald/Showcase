@@ -30,7 +30,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 		});
 	}*/
 
-	const response = await resolve(event, theme ? {transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`)} : undefined);
+	const response = await resolve(
+		event,
+		theme
+			? { transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`) }
+			: undefined
+	);
 
 	if (cookieTheme === theme) {
 		response.headers.set('set-cookie', event.locals.pb.authStore.exportToCookie());

@@ -27,32 +27,32 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 };
 
 export const actions: Actions = {
-    updateProject: async ({ request, locals, params }) => { 
-        const formData = await request.formData();
+	updateProject: async ({ request, locals, params }) => {
+		const formData = await request.formData();
 
-        const thumbnail = formData.get("thumbnail") as File;
+		const thumbnail = formData.get('thumbnail') as File;
 
-        if (thumbnail.size === 0) { 
-            formData.delete("thumbnail");
-        }
+		if (thumbnail.size === 0) {
+			formData.delete('thumbnail');
+		}
 
-        try {
-            await locals.pb.collection("projects").update(params.projectid, formData);
-        } catch(err) { 
-            console.error(err); 
-            throw error(500, "Internal Server Error");
-        }
+		try {
+			await locals.pb.collection('projects').update(params.projectid, formData);
+		} catch (err) {
+			console.error(err);
+			throw error(500, 'Internal Server Error');
+		}
 
-        throw redirect(303, `/my/projects`);
-    },
-    deleteThumbnail: async ({ locals, params }) => {
-        try {
-            await locals.pb.collection('projects').update(params.projectid, { thumbnail: null})
-        } catch (err) {
-            throw error(500, "internal Server error")
-        }
-        return {
-            success: true
-        }
-    }
+		throw redirect(303, `/my/projects`);
+	},
+	deleteThumbnail: async ({ locals, params }) => {
+		try {
+			await locals.pb.collection('projects').update(params.projectid, { thumbnail: null });
+		} catch (err) {
+			throw error(500, 'internal Server error');
+		}
+		return {
+			success: true
+		};
+	}
 };
