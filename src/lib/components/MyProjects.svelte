@@ -2,6 +2,7 @@
 	import type { Project } from '$lib/types';
 	import { getImageURL } from '$lib/utils';
 	import { Modal } from '$lib/components';
+	import { enhance } from '$app/forms';
 
 	export let project: Project;
 
@@ -22,7 +23,7 @@
 		</div>
 	</div>
 	<div class="flex flex-col w-full ml-4 h-full justify-center">
-		<a href="/project/{project.id}" class="font-semibold text-lg">{project.name}</a>
+		<a href="/projects/{project.id}" class="font-semibold text-lg">{project.name}</a>
 		<p>{project.tagline}</p>
 	</div>
 	<div class="flex items-center justify-end w-full sm:flex-row flex-col">
@@ -37,7 +38,7 @@
 			</div>
 			<div slot="actions" class="flex w-full items-center justify-center space-x-2">
 				<label for={project.id} class="btn btn-outline">Cancel</label>
-				<form action="?/deleteProject" method="POST">
+				<form action="?/deleteProject" method="POST" use:enhance>
 					<input type="hidden" name="id" value={project.id} />
 					<button type="submit" class="btn btn-error">Delete</button>
 				</form>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import { Input } from '$lib/components';
 	import { getImageURL } from '$lib/utils';
 	import { Icon, Trash } from 'svelte-hero-icons';
@@ -14,6 +15,7 @@
 			method="post"
 			class="flex flex-col space-y-2 w-full items-center"
 			enctype="multipart/form-data"
+			use:enhance
 		>
 			<h3 class="text-3xl font-bold">Edit {data.project.name}</h3>
 			<Input label="name" id="name" value={data.project.name ?? ''} />

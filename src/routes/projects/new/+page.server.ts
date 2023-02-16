@@ -26,6 +26,6 @@ export const actions: Actions = {
             throw error(500, "Internal Server Error");
         }
 
-        throw redirect(303, "/");
+        throw redirect(303, "/my/projects");
     }
 };
