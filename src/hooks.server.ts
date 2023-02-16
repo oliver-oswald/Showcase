@@ -18,9 +18,13 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.pb = new PocketBase('https://ollis-test-pocketbase.fly.dev/');
 	event.locals.pb.authStore.loadFromCookie(event.request.headers.get('cookie') || '');
 
-	if (event.locals.pb.authStore.isValid) {
-		event.locals.user = serializeNonPOJOs<User>(event.locals.pb.authStore.model as User);
-	} else {
+	try {
+		if (event.locals.pb.authStore.isValid) {
+			await event.locals.pb.collection('users').authRefresh();
+			event.locals.user = serializeNonPOJOs<User>(event.locals.pb.authStore.model as User);	
+		}
+	} catch (_) {
+		event.locals.pb.authStore.clear();
 		event.locals.user = undefined;
 	}
 
