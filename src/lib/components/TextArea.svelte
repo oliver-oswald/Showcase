@@ -4,7 +4,6 @@
 		label: string;
 		value?: string;
 		placeholder?: string;
-		type?: string;
 		disabled?: boolean;
 		required?: boolean;
 		errors?: string[];
@@ -13,22 +12,18 @@
 	export let placeholder = '';
 	export let id: string;
 	export let label: string;
-	export let type: string = 'text';
 	export let disabled: boolean = false;
 	export let required: boolean = false;
 
 	export let errors: string[] | undefined = [];
 </script>
 
-<div class="form-control w-full max-w-lg mb-2">
+<div class="form-control w-full max-w-lg">
 	<label for={id} class="label font-medium pb-1">
-		<span class="label-text">{label}</span>
+		<span class="label-tex">{label}</span>
 	</label>
-	<input
-		class={type === 'file'
-			? 'file-input file-input-bordered w-full max-w-lg'
-			: 'input input-bordered w-full max-w-lg'}
-		{type}
+	<textarea
+		class="textarea textarea-bordered h-24 resize-none"
 		{placeholder}
 		{disabled}
 		{required}
