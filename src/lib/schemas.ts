@@ -137,3 +137,32 @@ export const updatePasswordSchema = z
 			});
 		}
 	});
+
+export const updateProfileSchema = z.object({
+	name: z
+		.string({ required_error: 'Name is required' })
+		.min(1, { message: 'Name must be at least 1 character long' })
+		.max(64, { message: 'Name must be less than 64 characters long' })
+		.trim(),
+	avatar: z
+		.instanceof(Blob)
+		.optional()
+		.superRefine((val, ctx) => {
+			if (val) {
+				if (val.size > 5242880) {
+					ctx.addIssue({
+						code: z.ZodIssueCode.custom,
+						message: 'Avatar must be less than 5MB',
+						path: ['avatar']
+					});
+				}
+				if (!imageTypes.includes(val.type)) {
+					ctx.addIssue({
+						code: z.ZodIssueCode.custom,
+						message: 'Unsupported image type. Supported types are: jpeg, jpg, png, webp, gif, svg',
+						path: ['avatar']
+					});
+				}
+			}
+		})
+});

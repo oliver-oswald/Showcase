@@ -4,9 +4,10 @@
 	import { Input } from '$lib/components';
 	import { getImageURL } from '$lib/utils';
 	import { Icon, Pencil } from 'svelte-hero-icons';
-	import type { PageData } from './$types';
+	import type { ActionData, PageData } from './$types';
 
 	export let data: PageData;
+	export let form: ActionData;
 	let loading: boolean;
 
 	$: loading = false;
@@ -77,8 +78,23 @@
 				on:change={showPreview}
 				disabled={loading}
 			/>
+			{#if form?.errors?.avatar}
+				{#each form?.errors?.avatar as error}
+					<label for="avatar" class="label py-0 pt-1">
+						<span class="label-text-alt text-error">
+							{error}
+						</span>
+					</label>
+				{/each}
+			{/if}
 		</div>
-		<Input id="name" label="Name" value={data?.user?.name} disabled={loading} />
+		<Input
+			id="name"
+			label="Name"
+			value={form?.data?.name ?? data?.user?.name}
+			disabled={loading}
+			errors={form?.errors?.name}
+		/>
 		<div class="w-full max-w-lg pt-3">
 			<button type="submit" class="btn btn-primary w-full max-w-lg" disabled={loading}
 				>Update Profile</button
