@@ -2,9 +2,9 @@
 	import { applyAction, type SubmitFunction, enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import { Input, Modal } from '$lib/components';
-	import type { PageData } from './$types';
+	import type { ActionData, PageData } from './$types';
 
-	export let form: any;
+	export let form: ActionData;
 	export let data: PageData;
 
 	let emailModalOpen: boolean;
@@ -67,6 +67,7 @@
 					value={form?.data?.email}
 					label="Enter your new email address"
 					disabled={loading}
+					errors={form?.errors?.email}
 				/>
 				<button disabled={loading} type="submit" class="btn btn-primary w-full"
 					>Change my email</button
@@ -94,6 +95,7 @@
 					value={form?.data?.username}
 					label="Enter your new username address"
 					disabled={loading}
+					errors={form?.errors?.username}
 				/>
 				<button type="submit" class="btn btn-primary w-full" disabled={loading}
 					>Change my username</button

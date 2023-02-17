@@ -41,25 +41,25 @@
 			<Input
 				label="Project Name"
 				id="name"
-				value={form?.data.name ?? data.project.name}
+				value={form?.data?.name ?? data.project.name}
 				errors={form?.errors?.name}
 			/>
 			<Input
 				label="Project Tagline"
 				id="tagline"
-				value={form?.data.tagline ?? data.project.tagline}
+				value={form?.data?.tagline ?? data.project.tagline}
 				errors={form?.errors?.tagline}
 			/>
 			<Input
 				label="Project URL"
 				id="url"
-				value={form?.data.url ?? data.project.url}
+				value={form?.data?.url ?? data.project.url}
 				errors={form?.errors?.url}
 			/>
 			<TextArea
 				label="Project Description"
 				id="description"
-				value={form?.data.description ?? data.project.description}
+				value={form?.data?.description ?? data.project.description}
 				errors={form?.errors?.description}
 			/>
 			<div class="form-control w-full max-w-lg">
