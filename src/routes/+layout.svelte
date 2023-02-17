@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { getImageURL } from '$lib/utils';
 	import '../app.postcss';
+	import { Toaster } from 'svelte-french-toast';
 	import type { PageData } from './$types';
 	export let data: PageData;
 </script>
 
+<Toaster />
 <div class="min-h-full">
 	<nav class="navbar bg-base-100 border-b">
 		<div class="flex-1">

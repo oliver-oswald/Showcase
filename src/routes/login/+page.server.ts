@@ -1,6 +1,7 @@
 import { loginUserSchema } from '$lib/schemas';
 import { validateData } from '$lib/utils';
 import { fail, redirect, error } from '@sveltejs/kit';
+import type { ClientResponseError } from 'pocketbase';
 import type { Actions } from './$types';
 
 export const actions: Actions = {
@@ -26,7 +27,8 @@ export const actions: Actions = {
 			}
 		} catch (err) {
 			console.error(err);
-			throw error(500, 'something went wrong logging in');
+			const e = err as ClientResponseError;
+			throw error(e.status, e.message);
 		}
 		throw redirect(303, '/');
 	}
