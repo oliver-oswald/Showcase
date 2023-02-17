@@ -106,3 +106,34 @@ export const updateUsernameSchema = z.object({
 		.regex(/^[a-zA-Z0-9]+$/, { message: 'Username can only contain letters or numbers' })
 		.trim()
 });
+
+export const updatePasswordSchema = z
+	.object({
+		oldPassword: z.string({ required_error: 'Old password is required' }),
+		password: z
+			.string({ required_error: 'Password is required' })
+			.regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, {
+				message:
+					'Password must be at least 8 characters long and contain at least one letter, one number and one special character'
+			}),
+		passwordConfirm: z
+			.string({ required_error: 'Password is required' })
+			.regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, {
+				message:
+					'Password must be at least 8 characters long and contain at least one letter, one number and one special character'
+			})
+	})
+	.superRefine(({ password, passwordConfirm }, ctx) => {
+		if (password !== passwordConfirm) {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				message: 'Passwords do not match',
+				path: ['password']
+			});
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				message: 'Passwords do not match',
+				path: ['passwordConfirm']
+			});
+		}
+	});
