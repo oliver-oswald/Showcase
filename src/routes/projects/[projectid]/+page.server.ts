@@ -7,7 +7,9 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 	const getProject = async (projectId: string) => {
 		try {
 			const project = serializeNonPOJOs<Project>(
-				await locals.pb.collection('projects').getOne(projectId)
+				await locals.pb.collection('projects').getOne(projectId, {
+					expand: 'user'
+				})
 			);
 			return project;
 		} catch (err) {
