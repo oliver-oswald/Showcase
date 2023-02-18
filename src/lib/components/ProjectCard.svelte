@@ -5,7 +5,7 @@
 	export let project: Project;
 </script>
 
-<div class="card mx-3 sm:mx-0 sm:w-72 bgbase-100 shadow-xl w-fit">
+<div class="card mx-3 sm:mx-0 sm:w-72 bgbase-100 shadow-xl w-fit max-h-96">
 	<figure>
 		<img
 			src={project?.thumbnail

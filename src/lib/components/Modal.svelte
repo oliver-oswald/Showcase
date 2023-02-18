@@ -3,7 +3,7 @@
 	export let checked: boolean = false;
 </script>
 
-<label for={label}>
+<label for={label} class="w-full sm:w-fit">
 	<slot name="trigger" />
 </label>
 

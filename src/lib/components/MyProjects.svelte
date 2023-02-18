@@ -47,9 +47,9 @@
 		<p>{project.tagline}</p>
 	</div>
 	<div class="flex items-center justify-end w-full sm:flex-row flex-col">
-		<a href="/projects/{project.id}/edit" class="btn btn-outline">Edit Project</a>
+		<a href="/projects/{project.id}/edit" class="btn btn-outline w-full sm:w-fit">Edit Project</a>
 		<Modal label={project.id} checked={modalOpen}>
-			<span slot="trigger" class="btn btn-error sm:ml-2 mt-2 sm:mt-0">Delete</span>
+			<span slot="trigger" class="btn btn-error sm:ml-2 mt-2 sm:mt-0 w-full">Delete</span>
 			<div slot="heading">
 				<h3 class="text-2xl">Delete {project.name}</h3>
 				<p class="text-base font-normal mt-2">
