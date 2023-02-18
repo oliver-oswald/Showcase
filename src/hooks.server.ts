@@ -1,6 +1,7 @@
 import type { Handle } from '@sveltejs/kit';
 import PocketBase from 'pocketbase';
 import { serializeNonPOJOs } from '$lib/utils';
+import { DB_URL } from '$env/static/private';
 import type { User } from '$lib/types';
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -15,7 +16,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		theme = cookieTheme;
 	}
 
-	event.locals.pb = new PocketBase('https://ollis-test-pocketbase.fly.dev/');
+	event.locals.pb = new PocketBase(DB_URL);
 	event.locals.pb.authStore.loadFromCookie(event.request.headers.get('cookie') || '');
 
 	try {
