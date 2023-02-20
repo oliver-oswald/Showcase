@@ -24,7 +24,7 @@
 			{data.project.name}
 		</h1>
 		<p>by</p>
-		<h2 class="font-bold">{user.name}</h2>
+		<h2 class="font-bold">{user.username}</h2>
 		<div class="avatar translate-y-2.5">
 			<div class="w-10 rounded-full">
 				<img
