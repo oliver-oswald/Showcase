@@ -48,7 +48,7 @@
 		use:enhance={submitUpdateProfile}
 	>
 		<h3 class="text-2xl font-medium">Update Profile</h3>
-		<div class="form-control w-full aspect-square max-w-lg">
+		<div class="form-control w-full max-w-lg">
 			<label for="avatar" class="label font-medium pb-1">
 				<span class="label-text"> Profile Picture </span>
 			</label>
@@ -58,7 +58,7 @@
 						<Icon class="w-4 h-4" src={Pencil} />
 					</span>
 				</label>
-				<div class="w-32 rounded-full">
+				<div class="w-32 h-32 rounded-full">
 					<img
 						src={data.user?.avatar
 							? getImageURL(data.user?.collectionId, data.user?.id, data.user?.avatar)
