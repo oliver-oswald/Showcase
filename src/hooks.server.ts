@@ -47,9 +47,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 	*/
 
-	const response = await resolve(event);
+	const response = await resolve(event, {transformPageChunk: ({ html }) => html.replace(/data-theme="([a-zA-Z]*)"/, `data-theme="${theme}"`)});
 
 	response.headers.set('set-cookie', event.locals.pb.authStore.exportToCookie());
+	response.headers.append('set-cookie', `colortheme=${theme}; path=/; max-age=31536000;`)
 
 	return response;
 };
