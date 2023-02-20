@@ -6,9 +6,10 @@
 </script>
 
 <div class="card mx-3 sm:mx-0 sm:w-72 bgbase-100 shadow-xl w-fit max-h-96">
-	<figure>
+	<figure
+		class="rounded-t-xl overflow-hidden"
+	>
 		<img
-			class="rounded-t-sm"
 			src={project?.thumbnail
 				? getImageURL(project.collectionId, project.id, project.thumbnail)
 				: `https://via.placeholder.com/500/4506CB/FFFFFF/?text=${project.name}`}
