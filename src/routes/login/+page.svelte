@@ -14,9 +14,6 @@
 		return async ({ result, update }) => {
 			switch (result.type) {
 				case 'success':
-					result.data?.notVerified ? toast('Please verify your email',{
-						icon: '😞'
-					}) : toast.success('Logged in');
 					await update();
 					break;
 				case 'failure':
