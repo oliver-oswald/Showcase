@@ -33,7 +33,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		return await resolve(event, {
 			transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`)
 		});
-	}*/
+	}
 
 	const response = await resolve(
 		event,
@@ -45,6 +45,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 	if (cookieTheme === theme) {
 		response.headers.set('set-cookie', event.locals.pb.authStore.exportToCookie());
 	}
+	*/
+
+	const response = await resolve(event);
+
+	response.headers.set('set-cookie', event.locals.pb.authStore.exportToCookie());
 
 	return response;
 };
