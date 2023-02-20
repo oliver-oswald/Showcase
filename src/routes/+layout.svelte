@@ -26,7 +26,7 @@
 					<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label tabindex="0" class="btn btn-ghost btn-circle avatar">
-						<div class="w-10 rounded-full">
+						<div class="w-10 h-10 rounded-full">
 							<img
 								src={data.user?.avatar
 									? getImageURL(data.user?.collectionId, data.user?.id, data.user?.avatar)

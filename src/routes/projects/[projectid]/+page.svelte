@@ -26,7 +26,7 @@
 		<p>by</p>
 		<h2 class="font-bold">{user.username}</h2>
 		<div class="avatar translate-y-2.5">
-			<div class="w-10 rounded-full">
+			<div class="w-10 h-10 rounded-full">
 				<img
 					src={user?.avatar
 						? getImageURL(user?.collectionId, user?.id, user?.avatar)
